@@ -12,7 +12,6 @@ do
 done
 
 #joining
-concat_param="concat:"
 path=""
 counter=0
 for file in ./temp/*.ts;
@@ -39,7 +38,7 @@ do
 
     IFS=' ' # reset to default value after usage
 
-    #if this is the 1. word, don't add a pipe so the output will be concat:file1.ts|file2.ts
+    #if this is the 1. word, don't add a pipe so the output will be concat:temp/file1.ts|temp/file2.ts
     if ((counter == 0))
     then
         path="${path}$correct_file_path"
