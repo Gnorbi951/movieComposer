@@ -19,21 +19,27 @@ for file in ./temp/*.ts;
 do
     correct_file_path=""
     IFS='/' # hyphen (/) is set as delimiter
-    read -ra ADDR <<< "$file" # str is read into an array as tokens separated by IFS
+    read -ra ADDR <<< "$file" # file is read into an array as tokens separated by IFS
     word_counter=0
+
     for i in "${ADDR[@]}";
-    do # access each element of array
+    do
+        # If it is the 2. or 4. element simply append
         if (($word_counter==1 || $word_counter==3))
         then
             correct_file_path=$correct_file_path$i
+        
+        # If it is the 3. element add a / so the path will be correct
         elif (($word_counter==2))
         then
             correct_file_path="${correct_file_path}/$i"
         fi
         ((word_counter++))
     done
+
     IFS=' ' # reset to default value after usage
-    echo $correct_file_path
+
+    #if this is the 1. word, don't add a pipe so the output will be concat:file1.ts|file2.ts
     if ((counter == 0))
     then
         path="${path}$correct_file_path"
@@ -43,8 +49,7 @@ do
     ((counter++))
 done
 final_path="concat:${path}"
-echo $final_path
- ffmpeg -i $final_path -c copy -bsf:a aac_adtstoasc output/output.mp4 -y
+ffmpeg -i $final_path -c copy -bsf:a aac_adtstoasc output/output.mp4 -y
 
 #removing temp file
-#rm temp/*
+rm temp/*
