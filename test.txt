@@ -1,4 +1,2 @@
-input1.mp4
-input2.mp4
-input3.mp4
-input4.mp4
+file '/temp/temp1.ts'
+file '/temp/temp2.ts'
