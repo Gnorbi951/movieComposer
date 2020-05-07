@@ -1,2 +1,0 @@
-file '/temp/temp1.ts'
-file '/temp/temp2.ts'

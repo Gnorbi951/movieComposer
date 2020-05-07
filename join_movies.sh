@@ -1,6 +1,7 @@
 #! /bin/bash
 
 #transcoding
+#input directory
 counter=0
 path="temp/temp"
 extension=".ts"
@@ -10,6 +11,17 @@ do
     ffmpeg -i $filename -c copy -bsf:v h264_mp4toannexb -f mpegts $final_path -y
     ((counter++))
 done
+
+#picture directory
+if [ -f ./picture/intro.mp4 ]
+then
+    ffmpeg -i ./picture/intro.mp4 -c copy -bsf:v h264_mp4toannexb -f mpegts temp/a.ts
+fi
+if [ -f ./picture/outro.mp4 ]
+then
+ffmpeg -i ./picture/outro.mp4 -c copy -bsf:v h264_mp4toannexb -f mpegts temp/z.ts
+fi
+#a and z for being first and last files
 
 #joining
 path=""
