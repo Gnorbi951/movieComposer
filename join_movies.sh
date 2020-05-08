@@ -8,18 +8,18 @@ extension=".ts"
 for filename in ./input/*.mp4;
 do
     final_path=$path$counter$extension
-    ffmpeg -i $filename -c copy -bsf:v h264_mp4toannexb -f mpegts $final_path -y
+    ffmpeg -i $filename -c copy -bsf:v h264_mp4toannexb -f mpegts $final_path -y  -loglevel panic
     ((counter++))
 done
 
 #picture directory
 if [ -f ./picture/intro.mp4 ]
 then
-    ffmpeg -i ./picture/intro.mp4 -c copy -bsf:v h264_mp4toannexb -f mpegts temp/a.ts
+    ffmpeg -i ./picture/intro.mp4 -c copy -bsf:v h264_mp4toannexb -f mpegts temp/a.ts -loglevel panic
 fi
 if [ -f ./picture/outro.mp4 ]
 then
-ffmpeg -i ./picture/outro.mp4 -c copy -bsf:v h264_mp4toannexb -f mpegts temp/z.ts
+ffmpeg -i ./picture/outro.mp4 -c copy -bsf:v h264_mp4toannexb -f mpegts temp/z.ts -loglevel panic
 fi
 #a and z for being first and last files
 
@@ -39,7 +39,7 @@ do
         if (($word_counter==1 || $word_counter==3))
         then
             correct_file_path=$correct_file_path$i
-        
+
         # If it is the 3. element add a / so the path will be correct
         elif (($word_counter==2))
         then
@@ -60,7 +60,7 @@ do
     ((counter++))
 done
 final_path="concat:${path}"
-ffmpeg -i $final_path -c copy -bsf:a aac_adtstoasc output/output.mp4 -y
+ffmpeg -i $final_path -c copy -bsf:a aac_adtstoasc output/output.mp4 -y  -loglevel panic
 
 #removing temp file
 rm temp/*
